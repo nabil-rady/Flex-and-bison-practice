@@ -11,7 +11,7 @@ int lineno = 1;
 white [ \r\t]+
 letter [a-zA-Z]
 digit [0-9]+
-number {digit}*
+number [+-]?{digit}+("."{digit}+)?
 id {letter}({letter}|{digit})*
 
 %%
@@ -19,8 +19,10 @@ id {letter}({letter}|{digit})*
 {white} { }
 {number}  printf("NUMBER\n"); 
 "int"  printf("INT\n");
+"float" printf("FLOAT\n");
 {id} { printf("ID\n"); }
 "=" { printf("ASSIGN\n" ) ; }
+
 
 %%
 
