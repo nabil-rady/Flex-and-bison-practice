@@ -1,6 +1,7 @@
 %{
-#define YYSTYPE char ∗
+#define YYSTYPE char *
 #include "stdlib.h"
+#include "yacc.tab.h"
 int lineno = 1;
 %}
 
@@ -17,21 +18,14 @@ id {letter}({letter}|{digit})*
 %%
 
 {white} { }
-{number}  printf("NUMBER\n"); 
-"int"  printf("INT\n");
-"float" printf("FLOAT\n");
-{id} { printf("ID\n"); }
-"=" { printf("ASSIGN\n" ) ; }
-
+{number}  { yylval = strdup(yytext); return NUMBER; }
+"int"  { yylval = strdup(yytext); return INT;}
+"float"  { yylval = strdup(yytext); return FLOAT;}
+{id}  { yylval = strdup(yytext); return ID;}
+"="  { yylval = strdup(yytext); return ASSIGN;}
 
 %%
 
 int yyerror (void) {
-    printf ( " Error \n " ) ;
-}
-
-int main () {
-    FILE* fp = fopen("test.txt", "r");
-    yyin=fp ;
-    yylex() ;
+    printf("Error\n");
 }

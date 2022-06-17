@@ -458,12 +458,13 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "lex.l"
 #line 2 "lex.l"
-#define YYSTYPE char ∗
+#define YYSTYPE char *
 #include "stdlib.h"
+#include "yacc.tab.h"
 int lineno = 1;
-#line 465 "lex.yy.c"
+#line 466 "lex.yy.c"
 #define YY_NO_UNISTD_H 1
-#line 467 "lex.yy.c"
+#line 468 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -680,10 +681,10 @@ YY_DECL
 		}
 
 	{
-#line 17 "lex.l"
+#line 18 "lex.l"
 
 
-#line 687 "lex.yy.c"
+#line 688 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -738,40 +739,40 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 19 "lex.l"
+#line 20 "lex.l"
 { }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 20 "lex.l"
-printf("NUMBER\n"); 
+#line 21 "lex.l"
+{ yylval = strdup(yytext); return NUMBER; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 21 "lex.l"
-printf("INT\n");
+#line 22 "lex.l"
+{ yylval = strdup(yytext); return INT;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 22 "lex.l"
-printf("FLOAT\n");
+#line 23 "lex.l"
+{ yylval = strdup(yytext); return FLOAT;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 23 "lex.l"
-{ printf("ID\n"); }
+#line 24 "lex.l"
+{ yylval = strdup(yytext); return ID;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 24 "lex.l"
-{ printf("ASSIGN\n" ) ; }
+#line 25 "lex.l"
+{ yylval = strdup(yytext); return ASSIGN;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 27 "lex.l"
 ECHO;
 	YY_BREAK
-#line 775 "lex.yy.c"
+#line 776 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1781,12 +1782,6 @@ void yyfree (void * ptr )
 
 
 int yyerror (void) {
-    printf ( " Error \n " ) ;
-}
-
-int main () {
-    FILE* fp = fopen("test.txt", "r");
-    yyin=fp ;
-    yylex() ;
+    printf("Error\n");
 }
 
